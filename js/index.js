@@ -11,21 +11,27 @@ if (localStorage.getItem("websiteList") !== null) {
 }
 
 function addWebsite() {
-  var website = {
-    code: siteNameInput.value,
-    url: siteUrlInput.value,
-  }
-  for (var i = 0; i < websiteList.length; i++) {
-    if (websiteList[i].code === website.code) {
-      alert("This website is already bookmarked");
-      return;
+  if(validateUrl()){
+    var website = {
+      code: siteNameInput.value,
+      url: siteUrlInput.value,
     }
+    for (var i = 0; i < websiteList.length; i++) {
+      if (websiteList[i].code === website.code) {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "This website is already bookmarked!",
+        });
+        return;
+      }
+    }
+    websiteList.push(website);
+    console.log(website);
+    localStorage.setItem("websiteList", JSON.stringify(websiteList));
+    clearWebsite();
+    displayWebsite();
   }
-  websiteList.push(website);
-  console.log(website);
-  localStorage.setItem("websiteList", JSON.stringify(websiteList));
-  clearWebsite();
-  displayWebsite();
 }
 function clearWebsite() {
   siteNameInput.value = null;
@@ -71,12 +77,24 @@ function visitWebsite(i) {
 function validateUrl() {
   var regex = /^((https?|ftp):\/\/)?(([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}|localhost|(\d{1,3}\.){3}\d{1,3}|\[[a-fA-F0-9:]+\])(:\d+)?(\/[-a-zA-Z0-9@:%._~!$&'()*+,;=]*)*(\?[;&a-zA-Z0-9@:%._~+=-]*)?(#[-a-zA-Z0-9@:%._~+=]*)?$/gi;
   var url = siteUrlInput.value;
-  if (regex.test  (url)) {
+  if (regex.test(url)) {
     siteUrlInput.classList.remove("is-invalid");
     siteUrlInput.classList.add("is-valid");
+    return true;
   } else {
     siteUrlInput.classList.remove("is-valid");
     siteUrlInput.classList.add("is-invalid");
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "Enter a valid URL: it can start with http://, https://, or ftp://, or omit the protocol (e.g., example.com, localhost); it can include IPs, ports, paths, queries, and fragments (e.g., example.com:8080/path?query=value#section).",
+    });
     return false;
-  } 
+  }
 }
+
+/* var alertMessage = Swal.fire({
+  icon: "error",
+  title: "Oops...",
+  text: "Enter a valid URL: it can start with http://, https://, or ftp://, or omit the protocol (e.g., example.com, localhost); it can include IPs, ports, paths, queries, and fragments (e.g., example.com:8080/path?query=value#section).",
+}); */
