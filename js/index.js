@@ -4,15 +4,13 @@ var submitButton = document.getElementById("submitButton");
 var websiteList = [];
 var deleteBtn = document.getElementById("delete");
 var viewBtn = document.getElementById("visit");
-var currentIndex = 0;
-var alert = document.getElementById("alert");
 if (localStorage.getItem("websiteList") !== null) {
   websiteList = JSON.parse(localStorage.getItem("websiteList"));
   displayWebsite();
 }
 
 function addWebsite() {
-  if(validateUrl()){
+  if (validateUrl() && validateName()) {
     var website = {
       code: siteNameInput.value,
       url: siteUrlInput.value,
@@ -32,13 +30,32 @@ function addWebsite() {
     localStorage.setItem("websiteList", JSON.stringify(websiteList));
     clearWebsite();
     displayWebsite();
+  } else {
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      html: `
+      <h5>Site Name or Url is not valid, Please follow the rules below :</h5>
+      <div>
+        <span><i class="fa-solid   fa-triangle-exclamation fa-lg" style="color: #FFD43B;"></i></span>
+        <span class="h6">Site name must contain at least 3 characters</span>
+      </div>
+      <div>
+        <span><i class="fa-solid fa-triangle-exclamation fa-lg" style="color: #FFD43B;"></i></span>
+        <span class="h6">Enter a valid URL: it can start with http://, https://, or ftp://, or omit the protocol (e.g., example.com, localhost); it can include IPs, ports, paths, queries, and fragments (e.g., example.com:8080/path?query=value#section).</sp>
+      </div>
+      `,
+    });
   }
+
 }
 function clearWebsite() {
   siteNameInput.value = null;
   siteUrlInput.value = null;
   siteUrlInput.classList.remove("is-valid");
   siteUrlInput.classList.remove("is-invalid");
+  siteNameInput.classList.remove("is-valid");
+  siteNameInput.classList.remove("is-invalid");
 }
 
 function displayWebsite() {
@@ -83,12 +100,24 @@ function validateUrl() {
   if (regex.test(url)) {
     siteUrlInput.classList.remove("is-invalid");
     siteUrlInput.classList.add("is-valid");
-    alert.classList.add("d-none");
-
     return true;
   } else {
     siteUrlInput.classList.remove("is-valid");
     siteUrlInput.classList.add("is-invalid");
-    alert.classList.remove("d-none");
+    return false;
+  }
+}
+
+function validateName() {
+  var regex = /^[a-zA-Z0-9\s\-\|\,\.\&\(\)]+([a-zA-Z0-9\s\-\|\,\.\&\(\)]{2,60})$/gi;
+  var code = siteNameInput.value;
+  if (regex.test(code)) {
+    siteNameInput.classList.remove("is-invalid");
+    siteNameInput.classList.add("is-valid");
+    return true;
+  } else {
+    siteNameInput.classList.remove("is-valid");
+    siteNameInput.classList.add("is-invalid");
+    return false;
   }
 }
