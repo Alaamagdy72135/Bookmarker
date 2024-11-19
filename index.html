@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bookmarker</title>
+    <link rel="stylesheet" href="CSS/bootstrap.min.css" />
+    <link rel="stylesheet" href="CSS/all.min.css" />
+    <link rel="icon" href="images/icon.webp" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=PT+Sans+Caption:wght@400;700&family=Pacifico&family=Righteous&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="CSS/main.css" />
+  </head>
+  <body>
+    <div class="home min-vh-100">
+      <div
+        class="container py-5 d-flex flex-column justify-content-center align-item-center"
+      >
+        <h1 class="text-center mb-5">Bookmarker</h1>
+        <div class="row form-data">
+          <div class="col py-3 justify-content-center align-items-center">
+            <h2 class="text-center">
+              <span>
+                <i class="fa-solid fa-bookmark"></i>
+              </span>
+              Bookmark your favorite sites
+              <span>
+                <i class="fa-solid fa-bookmark"></i>
+              </span>
+            </h2>
+            <div class="form">
+              <div class="mb-3">
+                <label for="siteName" class="form-label">
+                  <span><i class="fa-solid fa-book-bookmark"></i></span>
+                  Site Name
+                </label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="siteName"
+                  placeholder="Bookmark Name"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="siteUrl" class="form-label">
+                  <span> <i class="fa-solid fa-link"></i></span>
+                  Site URL</label
+                >
+                <input
+                  type="url"
+                  class="form-control"
+                  id="siteUrl"
+                  oninput="validateUrl()"
+                  placeholder="Website URL"
+                />
+              </div>
+              <div
+                class="d-flex flex-wrap justify-content-center align-items-center"
+              >
+                <button
+                  type="submit"
+                  id="submitButton"
+                  class="btn btn-primary px-5 py-2"
+                  onclick="addWebsite();"
+                >
+                  Submit
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <table id="table" class="table text-center">
+            <thead>
+              <tr>
+                <th scope="col">Index</th>
+                <th scope="col">Website Name</th>
+                <th scope="col">Visit</th>
+                <th scope="col">Delete</th>
+              </tr>
+            </thead>
+            <tbody id="rowData">
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/index.js"></script>
+  </body>
+</html>
