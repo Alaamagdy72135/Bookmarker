@@ -47,7 +47,6 @@ function addWebsite() {
       `,
     });
   }
-
 }
 function clearWebsite() {
   siteNameInput.value = null;
@@ -109,7 +108,7 @@ function validateUrl() {
 }
 
 function validateName() {
-  var regex = /^[a-zA-Z0-9\s\-\|\,\.\&\(\)]+([a-zA-Z0-9\s\-\|\,\.\&\(\)]{2,60})$/gi;
+  var regex = /^[a-zA-Z0-9\-\|\,\.\&\(\)]+([a-zA-Z0-9\s\-\|\,\.\&\(\)]{2,60})$/gi;
   var code = siteNameInput.value;
   if (regex.test(code)) {
     siteNameInput.classList.remove("is-invalid");
