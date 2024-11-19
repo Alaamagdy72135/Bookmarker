@@ -59,6 +59,12 @@
                   placeholder="Website URL"
                 />
               </div>
+              <div id="alert" class="alert alert-danger d-none" role="alert">
+                Enter a valid URL: it can start with http://, https://, or
+                ftp://, or omit the protocol (e.g., example.com, localhost); it
+                can include IPs, ports, paths, queries, and fragments (e.g.,
+                example.com:8080/path?query=value#section).
+              </div>
               <div
                 class="d-flex flex-wrap justify-content-center align-items-center"
               >
@@ -84,8 +90,7 @@
                 <th scope="col">Delete</th>
               </tr>
             </thead>
-            <tbody id="rowData">
-            </tbody>
+            <tbody id="rowData"></tbody>
           </table>
         </div>
       </div>

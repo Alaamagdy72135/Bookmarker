@@ -5,6 +5,7 @@ var websiteList = [];
 var deleteBtn = document.getElementById("delete");
 var viewBtn = document.getElementById("visit");
 var currentIndex = 0;
+var alert = document.getElementById("alert");
 if (localStorage.getItem("websiteList") !== null) {
   websiteList = JSON.parse(localStorage.getItem("websiteList"));
   displayWebsite();
@@ -36,6 +37,8 @@ function addWebsite() {
 function clearWebsite() {
   siteNameInput.value = null;
   siteUrlInput.value = null;
+  siteUrlInput.classList.remove("is-valid");
+  siteUrlInput.classList.remove("is-invalid");
 }
 
 function displayWebsite() {
@@ -80,21 +83,12 @@ function validateUrl() {
   if (regex.test(url)) {
     siteUrlInput.classList.remove("is-invalid");
     siteUrlInput.classList.add("is-valid");
+    alert.classList.add("d-none");
+
     return true;
   } else {
     siteUrlInput.classList.remove("is-valid");
     siteUrlInput.classList.add("is-invalid");
-    Swal.fire({
-      icon: "error",
-      title: "Oops...",
-      text: "Enter a valid URL: it can start with http://, https://, or ftp://, or omit the protocol (e.g., example.com, localhost); it can include IPs, ports, paths, queries, and fragments (e.g., example.com:8080/path?query=value#section).",
-    });
-    return false;
+    alert.classList.remove("d-none");
   }
 }
-
-/* var alertMessage = Swal.fire({
-  icon: "error",
-  title: "Oops...",
-  text: "Enter a valid URL: it can start with http://, https://, or ftp://, or omit the protocol (e.g., example.com, localhost); it can include IPs, ports, paths, queries, and fragments (e.g., example.com:8080/path?query=value#section).",
-}); */
