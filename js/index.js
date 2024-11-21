@@ -90,7 +90,12 @@ function deleteWebsite(i) {
 }
 
 function visitWebsite(i) {
-  window.open(websiteList[i].url);
+  regex = /^https?:\/\/$/
+  if (regex.test(websiteList[i].url)) {
+    window.open(websiteList[i].url);
+  } else {
+    window.open(`https://` + websiteList[i].url); 
+  }
 }
 
 function validateUrl() {
